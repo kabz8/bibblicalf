@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'wouter';
 import { useTranslation } from 'react-i18next';
-import { Moon, Sun, Globe, LogOut, User, LayoutDashboard, ChevronDown } from 'lucide-react';
+import { Moon, Sun, Globe, LogOut, User, LayoutDashboard, ChevronDown, Mail, Phone, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { useTheme } from '@/hooks/use-theme';
 import { useAuth } from '@/hooks/use-auth';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
+import logoPng from "@assets/logo_1772459405886.png";
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const { t, i18n } = useTranslation();
@@ -29,41 +30,67 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-brand flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-105 transition-transform">
-              C
-            </div>
-            <span className="font-bold text-xl tracking-tight text-foreground">
-              Course<span className="text-primary">Hub</span>
-            </span>
+            <img src={logoPng} alt="Biblical Financial Courses" className="h-10 w-auto" />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                Faith Activities <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem className="font-bold text-xs uppercase text-muted-foreground px-2 py-1">Spiritual Growth</DropdownMenuItem>
+                <DropdownMenuItem>Worship</DropdownMenuItem>
+                <DropdownMenuItem>Reading</DropdownMenuItem>
+                <DropdownMenuItem>Meditation</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="font-bold text-xs uppercase text-muted-foreground px-2 py-1">Community</DropdownMenuItem>
+                <DropdownMenuItem>Games</DropdownMenuItem>
+                <DropdownMenuItem>Testimonies</DropdownMenuItem>
+                <DropdownMenuItem>Prayers</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                Along Activities <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Testimony Along</DropdownMenuItem>
+                <DropdownMenuItem>Pray Along</DropdownMenuItem>
+                <DropdownMenuItem>Sing Along</DropdownMenuItem>
+                <DropdownMenuItem>Read Along</DropdownMenuItem>
+                <DropdownMenuItem>Meditate Along</DropdownMenuItem>
+                <DropdownMenuItem>Game Along</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              {t('nav.courses')}
+              Courses
             </Link>
-            {isAuthenticated && (
-              <Link href="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                {t('nav.dashboard')}
-              </Link>
-            )}
+            <Link href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Donate
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2 md:gap-4">
-            {/* Language Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <Button variant="ghost" size="sm" className="gap-1 px-2 h-9">
                   <Globe className="w-4 h-4" />
+                  <span className="hidden sm:inline">English</span>
+                  <ChevronDown className="w-3 h-3 text-muted-foreground" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => toggleLang('en')}>English</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => toggleLang('sw')}>Swahili</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => toggleLang('fr')}>Français</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => toggleLang('ar')}>العربية</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => toggleLang('pt')}>Português</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Theme Toggle */}
             <Button
               variant="ghost"
               size="icon"
@@ -73,7 +100,6 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
 
-            {/* Auth */}
             {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -83,7 +109,6 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
                       alt="Avatar" 
                       className="w-7 h-7 rounded-full"
                     />
-                    <span className="hidden sm:inline-block text-sm font-medium">{user?.firstName || 'User'}</span>
                     <ChevronDown className="w-4 h-4 text-muted-foreground" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -91,19 +116,19 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
                   <Link href="/dashboard">
                     <DropdownMenuItem className="cursor-pointer">
                       <LayoutDashboard className="w-4 h-4 mr-2" />
-                      {t('nav.dashboard')}
+                      Dashboard
                     </DropdownMenuItem>
                   </Link>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => logout()} className="text-destructive cursor-pointer">
                     <LogOut className="w-4 h-4 mr-2" />
-                    {t('nav.logout')}
+                    Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild className="rounded-full font-semibold shadow-md hover:shadow-lg transition-all">
-                <a href="/api/login">{t('nav.login')}</a>
+              <Button asChild className="rounded-full font-semibold shadow-sm hover:shadow-md transition-all">
+                <a href="/api/login">Login</a>
               </Button>
             )}
           </div>
@@ -114,15 +139,75 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      <footer className="border-t py-12 bg-muted/30">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <div className="w-6 h-6 rounded-md bg-gradient-brand flex items-center justify-center text-white font-bold text-xs">C</div>
-            <span className="font-bold text-lg">CourseHub</span>
+      <footer className="bg-background border-t pt-16 pb-8">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div className="space-y-6">
+              <img src={logoPng} alt="Logo" className="h-12 w-auto" />
+              <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
+                A community of faith where believers come together to worship, pray, study, and grow spiritually.
+              </p>
+              <div className="flex items-center gap-4">
+                <Link href="#"><Facebook className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" /></Link>
+                <Link href="#"><Twitter className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" /></Link>
+                <Link href="#"><Instagram className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" /></Link>
+                <Link href="#"><Youtube className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" /></Link>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-lg mb-6">Faith Activities</h4>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li><Link href="#" className="hover:text-primary transition-colors">Worship</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Reading</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Meditation</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Games</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-lg mb-6">Community</h4>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li><Link href="#" className="hover:text-primary transition-colors">Testimonies</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Prayers</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Donate</Link></li>
+              </ul>
+              <h4 className="font-bold text-lg mt-8 mb-6">Along Activities</h4>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li><Link href="#" className="hover:text-primary transition-colors">Testimony Along</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Pray Along</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Sing Along</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-lg mb-6">Get in Touch</h4>
+              <ul className="space-y-4 text-sm text-muted-foreground mb-8">
+                <li className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-primary" />
+                  <span>info@biblicalfinancialcourses.com</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-primary" />
+                  <span>+1 (651) 348-9258</span>
+                </li>
+              </ul>
+              <h4 className="font-bold text-lg mb-4">Newsletter</h4>
+              <p className="text-xs text-muted-foreground mb-4">Subscribe for updates and devotionals</p>
+              <div className="flex gap-2">
+                <input 
+                  type="email" 
+                  placeholder="Your email" 
+                  className="bg-muted border-none rounded-lg px-4 py-2 text-sm w-full focus:ring-1 focus:ring-primary outline-none"
+                />
+                <Button className="bg-primary hover:bg-primary/90 text-white rounded-lg px-4">Subscribe</Button>
+              </div>
+            </div>
           </div>
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} CourseHub. All rights reserved.
-          </p>
+          
+          <div className="border-t pt-8 text-center text-xs text-muted-foreground">
+            © {new Date().getFullYear()} Biblical Financial Courses. All rights reserved.
+          </div>
         </div>
       </footer>
     </div>
