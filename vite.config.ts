@@ -3,6 +3,8 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
+const isVercel = process.env.VERCEL === "1";
+
 export default defineConfig({
   plugins: [
     react(),
@@ -28,7 +30,14 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    // On Vercel, emit the built SPA into /public so Vercel
+    // can serve it directly from the CDN.
+    // Locally / in non-Vercel environments, keep the existing
+    // dist/public layout so the bundled Node server can serve it.
+    outDir: path.resolve(
+      import.meta.dirname,
+      isVercel ? "public" : "dist/public",
+    ),
     emptyOutDir: true,
   },
   server: {
@@ -38,3 +47,4 @@ export default defineConfig({
     },
   },
 });
+
