@@ -33,9 +33,9 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
             <img src={logoPng} alt="Biblical Financial Courses" className="h-10 w-auto" />
           </Link>
 
-          <nav className="flex lg:flex items-center gap-6">
+          <nav className="flex lg:flex items-center gap-4 xl:gap-6">
             <DropdownMenu>
-              <DropdownMenuTrigger className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 outline-none">
+              <DropdownMenuTrigger className="text-xs xl:text-sm font-bold text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 outline-none whitespace-nowrap">
                 Faith Activities <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
@@ -52,7 +52,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
             </DropdownMenu>
 
             <DropdownMenu>
-              <DropdownMenuTrigger className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 outline-none">
+              <DropdownMenuTrigger className="text-xs xl:text-sm font-bold text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 outline-none whitespace-nowrap">
                 Along Activities <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
@@ -65,10 +65,10 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link href="/" className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/" className="text-xs xl:text-sm font-bold text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
               Courses
             </Link>
-            <Link href="#" className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="#" className="text-xs xl:text-sm font-bold text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
               Donate
             </Link>
           </nav>

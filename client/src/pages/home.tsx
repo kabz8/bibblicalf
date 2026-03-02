@@ -4,7 +4,7 @@ import { CourseCard } from "@/components/course-card";
 import { useCourses } from "@/hooks/use-courses";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, Play, Sparkles } from "lucide-react";
-import heroImg from "@assets/image_1772459291905.png";
+import heroImg from "@assets/7323_1752152530250-30yzAfBJ_1772459664361.jpg";
 
 export default function Home() {
   const { t } = useTranslation();
